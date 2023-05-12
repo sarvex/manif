@@ -306,11 +306,8 @@ if __name__ == '__main__':
 
     # Simulator
 
-    poses_simu = []
-    poses_simu.append(X_simu)
-    poses = []
-    poses.append(Xi + (SE3Tangent.Random()*0.1))  # use very noisy priors
-
+    poses_simu = [X_simu]
+    poses = [Xi + SE3Tangent.Random()*0.1]
     # Make 10 steps. Measure up to three landmarks each time.
     for i in range(NUM_POSES):
 
@@ -357,8 +354,7 @@ if __name__ == '__main__':
     print('-----------------------------------------------')
 
     # iterate
-    for iteration in range(MAX_ITER):
-
+    for _ in range(MAX_ITER):
         # Clear residual vector and Jacobian matrix
         r.fill(0)
         J.fill(0)
@@ -513,7 +509,7 @@ if __name__ == '__main__':
         dX = - inv(J.transpose() @ J) @ J.transpose() @ r
 
         # update calibrated offset
-        dc = dX[0:DimC]
+        dc = dX[:DimC]
         c = c + dc
 
         # update all poses

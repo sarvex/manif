@@ -289,8 +289,7 @@ if __name__ == '__main__':
     J_u_x = Jacobian()  # du / dX, since u is a state-dependent vector
 
     # Define five landmarks in R^3
-    landmarks = []
-    landmarks.append(Vector([2.0,  0.0,  0.0]))
+    landmarks = [Vector([2.0,  0.0,  0.0])]
     landmarks.append(Vector([3.0, -1.0, -1.0]))
     landmarks.append(Vector([2.0, -1.0,  1.0]))
     landmarks.append(Vector([2.0,  1.0,  1.0]))
@@ -322,7 +321,7 @@ if __name__ == '__main__':
     # START TEMPORAL LOOP
 
     # Make 10/dt steps. Measure up to three landmarks each time.
-    for t in frange(0, 10, dt):
+    for _ in frange(0, 10, dt):
         # I. Simulation
 
         # get current simulated state and measurements from previous step
@@ -331,7 +330,7 @@ if __name__ == '__main__':
         acc_k = alpha_prev + R_k.transpose() @ g
 
         # input vector
-        u_nom[0:3] = dt * R_k.transpose() @ v_k + 0.5 * dt * dt * acc_k
+        u_nom[:3] = dt * R_k.transpose() @ v_k + 0.5 * dt * dt * acc_k
         u_nom[3:6] = dt * omega_prev
         u_nom[6:9] = dt * acc_k
 
@@ -372,7 +371,7 @@ if __name__ == '__main__':
         accLinCross = skew(accLin)
         gCross = skew(gLin)
 
-        u_est[0:3] = accLin
+        u_est[:3] = accLin
         u_est[3:6] = dt * omega_prev
         u_est[6:9] = dt * acc_k_est
 

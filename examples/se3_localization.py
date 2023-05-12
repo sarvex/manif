@@ -139,8 +139,7 @@ if __name__ == '__main__':
     J_u = Jacobian()
 
     # Define five landmarks in R^3
-    landmarks = []
-    landmarks.append(Vector([2.0,  0.0,  0.0]))
+    landmarks = [Vector([2.0,  0.0,  0.0])]
     landmarks.append(Vector([3.0, -1.0, -1.0]))
     landmarks.append(Vector([2.0, -1.0,  1.0]))
     landmarks.append(Vector([2.0,  1.0,  1.0]))
@@ -171,7 +170,7 @@ if __name__ == '__main__':
     # START TEMPORAL LOOP
 
     # Make 10 steps. Measure up to three landmarks each time.
-    for t in range(10):
+    for _ in range(10):
         # I. Simulation
 
         # simulate noise
